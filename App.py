@@ -3,6 +3,8 @@ import streamlit as st
 import nltk
 import spacy
 import secrets
+import socket   
+import platform
 import pandas as pd
 import base64, random
 import time, datetime
