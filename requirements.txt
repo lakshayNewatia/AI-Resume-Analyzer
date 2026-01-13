@@ -11,4 +11,5 @@ geopy
 plotly
 streamlit-tags
 PyMySQL
+pdf2image
 nltk
