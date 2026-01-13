@@ -1,29 +1,25 @@
 ###### Packages Used ######
-import streamlit as st # core package used in this project
+import streamlit as st
 import nltk
 import spacy
 import pandas as pd
 import base64, random
-import time,datetime
+import time, datetime
 import pymysql
 import os
-import socket
-import platform
 import geocoder
-import secrets
-import io,random
-import plotly.express as px # to create visualisations at the admin session
+import io
+import plotly.express as px 
 import plotly.graph_objects as go
 from geopy.geocoders import Nominatim
-# libraries used to parse the pdf files
-# from pyresparser import ResumeParser
 from pdfminer.layout import LAParams, LTTextBox
 from pdfminer.pdfpage import PDFPage
-from pdfminer.pdfinterp import PDFResourceManager
-from pdfminer.pdfinterp import PDFPageInterpreter
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from streamlit_tags import st_tags
 from PIL import Image
+
+# 1. NLTK DOWNLOADS (Must happen before ResumeParser import)
 try:
     nltk.data.find('corpora/stopwords')
 except LookupError:
@@ -31,28 +27,27 @@ except LookupError:
     nltk.download('punkt')
     nltk.download('wordnet')
     nltk.download('averaged_perceptron_tagger')
-from pyresparser import ResumeParser
-# pre stored data for prediction purposes
-from Courses import ds_course,web_course,android_course,ios_course,uiux_course,resume_videos,interview_videos
-import re
-import nlp
 
+from pyresparser import ResumeParser
+from Courses import ds_course, web_course, android_course, ios_course, uiux_course, resume_videos, interview_videos
+import re
+
+# 2. LOAD SPACY MODEL
 nlp = spacy.load("en_core_web_sm")
 
-
-nltk.download('stopwords')
-
+# 3. AI CLIENT SETUP
 from google import genai
-client = genai.Client(api_key="AIzaSyAMjS-e19GltcTnNNhQqZzoKmOkFHycTxM")
+client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 def get_gemini_response(prompt: str) -> str:
     try:
         response = client.models.generate_content(
-            model="models/gemini-2.5-flash",  # recommended model
+            model="gemini-1.5-flash",  # Updated to a valid model name
             contents=prompt
         )
         return response.text.strip()
     except Exception as e:
+        st.error(f"AI Error: {e}")
         return "AI Service temporarily unavailable."
 
 
