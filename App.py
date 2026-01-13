@@ -3,6 +3,7 @@ import streamlit as st
 import nltk
 import spacy
 import secrets
+from pdf2image import convert_from_path
 import socket   
 import platform
 import pandas as pd
@@ -90,17 +91,25 @@ def pdf_reader(file):
 
 # show uploaded file path to view pdf_display
 def show_pdf(file_path):
-    with open(file_path, "rb") as f:
-        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    
-    # 1. Create a clickable link that opens in a new tab
-    pdf_link = f'<a href="data:application/pdf;base64,{base64_pdf}" target="_blank" style="text-decoration: none; background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px;">📄 View Resume Fullscreen</a>'
-    st.markdown(pdf_link, unsafe_allow_html=True)
-
-    # 2. provide a small iframe as a fallback
-    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600" type="application/pdf"></iframe>'
-    st.markdown(pdf_display, unsafe_allow_html=True)
-
+    try:
+        # Convert first page of PDF to an image
+        images = convert_from_path(file_path, first_page=1, last_page=1)
+        
+        if images:
+            # Display the converted image
+            st.image(images[0], caption="Resume Preview", use_container_width=True)
+            
+            # provide a download button as a fallback
+            with open(file_path, "rb") as f:
+                st.download_button(
+                    label="📥 Download Full Resume",
+                    data=f,
+                    file_name=os.path.basename(file_path),
+                    mime="application/pdf"
+                )
+    except Exception as e:
+        st.error(f"Error rendering preview: {e}")
+        st.info("The preview is unavailable, but you can still download the file above.")
 
 # course recommendations which has data already loaded from Courses.py
 def course_recommender(course_list):
