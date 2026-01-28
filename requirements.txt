@@ -14,4 +14,5 @@ pdf2image
 nltk
 pymongo
 dnspython
+pymysql
 
