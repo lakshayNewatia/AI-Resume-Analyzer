@@ -219,6 +219,54 @@ def run():
                 ai_pitch = get_gemini_response(pitch_prompt)
                 st.info(ai_pitch)
 
+            st.subheader("*Your Basic info 👀*")
+                try:
+                    st.text('Name: '+resume_data['name'])
+                    st.text('Email: ' + resume_data['email'])
+                    st.text('Contact: ' + resume_data['mobile_number'])
+                    st.text('Degree: '+str(resume_data['degree']))                    
+                    st.text('Resume pages: '+str(resume_data['no_of_pages']))
+
+                except:
+                    pass
+            ## Predicting Candidate Experience Level 
+                ### Trying with different possibilities
+                cand_level = ''
+                if resume_data['no_of_pages'] < 1:                
+                    cand_level = "NA"
+                    st.markdown( '''<h4 style='text-align: left; color: #d73b5c;'>You are at Fresher level!</h4>''',unsafe_allow_html=True)
+
+                #### if internship then intermediate level
+                elif 'INTERNSHIP' in resume_text:
+                    cand_level = "Intermediate"
+                    st.markdown('''<h4 style='text-align: left; color: #1ed760;'>You are at intermediate level!</h4>''',unsafe_allow_html=True)
+                elif 'INTERNSHIPS' in resume_text:
+                    cand_level = "Intermediate"
+                    st.markdown('''<h4 style='text-align: left; color: #1ed760;'>You are at intermediate level!</h4>''',unsafe_allow_html=True)
+                elif 'Internship' in resume_text:
+                    cand_level = "Intermediate"
+                    st.markdown('''<h4 style='text-align: left; color: #1ed760;'>You are at intermediate level!</h4>''',unsafe_allow_html=True)
+                elif 'Internships' in resume_text:
+                    cand_level = "Intermediate"
+                    st.markdown('''<h4 style='text-align: left; color: #1ed760;'>You are at intermediate level!</h4>''',unsafe_allow_html=True)
+
+                #### if Work Experience/Experience then Experience level
+                elif 'EXPERIENCE' in resume_text:
+                    cand_level = "Experienced"
+                    st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at experience level!''',unsafe_allow_html=True)
+                elif 'WORK EXPERIENCE' in resume_text:
+                    cand_level = "Experienced"
+                    st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at experience level!''',unsafe_allow_html=True)
+                elif 'Experience' in resume_text:
+                    cand_level = "Experienced"
+                    st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at experience level!''',unsafe_allow_html=True)
+                elif 'Work Experience' in resume_text:
+                    cand_level = "Experienced"
+                    st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at experience level!''',unsafe_allow_html=True)
+                else:
+                    cand_level = "Fresher"
+                    st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at Fresher level!!''',unsafe_allow_html=True)
+                    
             # ---- Skill Recommendation ----
             st.subheader("**Skills Recommendation 💡**")
             keywords = st_tags(label='### Your Current Skills',
