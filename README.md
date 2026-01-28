@@ -5,7 +5,7 @@
 This application uses **Natural Language Processing (NLP)** to parse resume content and **Google Gemini (2.5 Flash)** to generate AI-driven summaries, career gap analysis, and personalized recommendations for job seekers and recruiters.
 
 🔗 **Live Application:**  
-[Click here](https://ai-resume-analyse.streamlit.app/)
+[Click here](https://resumeinsight-app.streamlit.app/)
 ---
 
 ## 🌟 Core Capabilities
