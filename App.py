@@ -115,6 +115,11 @@ def course_recommender(course_list):
 def run():
     # img = Image.open('Logo/logo.jpg')
     # st.image(img)
+    try:
+        img = Image.open("Logo/logo.jpg")
+        st.image(img, width="stretch")
+    except:
+        st.info("Logo unavailable")
     st.sidebar.markdown("# Choose Something...")
     # activities = ["User", "Feedback", "About", "Admin"]
     activities = ["User", "About"]
@@ -621,15 +626,15 @@ def run():
                 ## Recommending Resume Writing Video
                 st.header("**Bonus Video for Resume Writing Tips💡**")
                 resume_vid = random.choice(resume_videos)
-                # st.video(resume_vid)
+                st.video(resume_vid)
 
                 ## Recommending Interview Preparation Video
                 st.header("**Bonus Video for Interview Tips💡**")
                 interview_vid = random.choice(interview_videos)
-                # st.video(interview_vid)
+                st.video(interview_vid)
 
                 ## On Successful Result 
-                # st.balloons()
+                st.balloons()
 
             else:
                 st.error('Something went wrong..') 
