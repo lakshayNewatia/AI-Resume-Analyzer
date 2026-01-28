@@ -220,18 +220,18 @@ def run():
                 st.info(ai_pitch)
 
             st.subheader("*Your Basic info 👀*")
-                try:
-                    st.text('Name: '+resume_data['name'])
-                    st.text('Email: ' + resume_data['email'])
-                    st.text('Contact: ' + resume_data['mobile_number'])
-                    st.text('Degree: '+str(resume_data['degree']))                    
-                    st.text('Resume pages: '+str(resume_data['no_of_pages']))
+            try:
+                st.text('Name: '+resume_data['name'])
+                st.text('Email: ' + resume_data['email'])
+                st.text('Contact: ' + resume_data['mobile_number'])
+                st.text('Degree: '+str(resume_data['degree']))                    
+                st.text('Resume pages: '+str(resume_data['no_of_pages']))
 
-                except:
-                    pass
+            except:
+                pass
             ## Predicting Candidate Experience Level 
-                ### Trying with different possibilities
-                cand_level = ''
+            ## Trying with different possibilities
+            cand_level = ''
                 if resume_data['no_of_pages'] < 1:                
                     cand_level = "NA"
                     st.markdown( '''<h4 style='text-align: left; color: #d73b5c;'>You are at Fresher level!</h4>''',unsafe_allow_html=True)
@@ -266,7 +266,7 @@ def run():
                 else:
                     cand_level = "Fresher"
                     st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at Fresher level!!''',unsafe_allow_html=True)
-                    
+            
             # ---- Skill Recommendation ----
             st.subheader("**Skills Recommendation 💡**")
             keywords = st_tags(label='### Your Current Skills',
